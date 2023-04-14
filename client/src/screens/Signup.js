@@ -29,10 +29,7 @@ export default function Signup() {
         });
           const json =await response.json()
           console.log(json);
-          if(!json.success)
-          {
-            alert("Enter valid credentials");
-          }
+         
         }
 
     const onchange = (event) =>{
@@ -108,7 +105,7 @@ export default function Signup() {
           Submit
         </button>
         <Link to='/login' className=" m-3 btn btn-danger">
-            Already a UserBro
+            Login
         </Link>
       </form>
 

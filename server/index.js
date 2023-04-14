@@ -1,9 +1,11 @@
 const express =require('express');
-let BaseURL= "https://mern-bro-food-backend.vercel.app"
+
+
 const app=express();
 const port= 5000||process.env.PORT;
 const mongoDB=require('./db');
 const cors = require('cors')
+//alloeing the cross origin request 
 
 mongoDB();
 app.use(cors());

@@ -85,7 +85,7 @@ return (
       Submit
     </button>
     <Link to='/createuser' className=" m-3 btn btn-danger">
-        New UserBro
+        Register
     </Link>
   </form>
 
