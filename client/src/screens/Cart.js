@@ -21,7 +21,7 @@ export default function Cart() {
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
     try {
-      let response = await fetch("http://localhost:5000/api/orderData", {
+      let response = await fetch("https://bro-food-server.vercel.app/api/orderData", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
