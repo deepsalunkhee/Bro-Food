@@ -17,61 +17,75 @@ export default function Navbar() {
       const [cartView,setCartView] = useState(false);
   return (
     <div>
-       <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <Link className="navbar-brand" to="/"><b><h2>Bro-Food</h2></b></Link>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+  <Link className="navbar-brand" to="/">
+    <b>
+      <h2>Bro-Food</h2>
+    </b>
+  </Link>
+  <button
+    className="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span className="navbar-toggler-icon"></span>
   </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto ">
-            <li className="nav-item active  ">
-              <Link className="nav-link" to="/">
-                Home{" "}
-              </Link>
-              {/* <span className="sr-only">(current)</span> */}
-            </li>
-            {localStorage.getItem("authToken") ? (
-              <li className="nav-item active  ">
-                <Link className="nav-link" to="/myOrder">
-                  My order{" "}
-                </Link>
-                {/* <span className="sr-only">(current)</span> */}
-              </li>
-            ) : (
-              ""
-            )}
-          </ul>
-          {!localStorage.getItem("authToken") ? (
-            <div className="d-flex">
-              <Link
-                className="btn bg-white text-success nav-link m-3"
-                to="/login"
-              >
-                Login
-              </Link>
-              <Link
-                className="btn bg-white text-success nav-link m-3"
-                to="/createuser"
-              >
-                signup
-              </Link>
-            </div>
-          ) : (
-            <div className="d-flex">
-             
-              <div className="btn bg-white text-success nav-link m-3" onClick={()=>{setCartView(true)}}>
-                Mycart{"  "}
-                <Badge pill bg="danger">{data.length}</Badge>
-              </div>
-              {cartView?<Modal onClose={()=>setCartView(false)}><Cart/></Modal>:null}
-
-              <div className="btn bg-white text-danger nav-link m-3" onClick={handlelogout}>
-                Logout
-              </div>
-            </div>
-          )}
+  <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div className="navbar-nav me-auto">
+      <Link className="nav-link" to="/">
+        Home
+      </Link>
+      {localStorage.getItem("authToken") && (
+        <Link className="nav-link" to="/myOrder">
+          My order
+        </Link>
+      )}
+    </div>
+    {!localStorage.getItem("authToken") ? (
+      <div className="d-flex">
+        <Link className="btn bg-white text-success nav-link m-3" to="/login">
+          Login
+        </Link>
+        <Link
+          className="btn bg-white text-success nav-link m-3"
+          to="/createuser"
+        >
+          signup
+        </Link>
+      </div>
+    ) : (
+      <div className="d-flex">
+        <div
+          className="btn bg-white text-success nav-link m-3"
+          onClick={() => {
+            setCartView(true);
+          }}
+        >
+          Mycart{" "}
+          <Badge pill bg="danger">
+            {data.length}
+          </Badge>
         </div>
-      </nav>
+        {cartView ? (
+          <Modal onClose={() => setCartView(false)}>
+            <Cart />
+          </Modal>
+        ) : null}
+        <div
+          className="btn bg-white text-danger nav-link m-3"
+          onClick={handlelogout}
+        >
+          Logout
+        </div>
+      </div>
+    )}
+  </div>
+</nav>
+
     </div>
   );
 }
