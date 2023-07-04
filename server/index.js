@@ -1,33 +1,33 @@
-const express =require('express');
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+const port = process.env.PORT || 5000;
+const mongoDB = require('./db');
 
 
-const app=express();
-const port= 5000||process.env.PORT;
-const mongoDB=require('./db');
-const cors = require('cors')
-//alloeing the cross origin request 
-
-mongoDB();
+app.use(express.json());
 app.use(cors());
 
-// app.use((req,res,next)=>{
-//     res.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
-//     res.header(
-//         "Access-Control-Allow-Header",
-//         "Origin, X-Requested-With, Content-Type,Accept"
-//     );
+async function startServer() {
+  try {
+    await mongoDB;
 
-//     next();
-// })
+    app.get('/', (req, res) => {
+      res.send('Express server');
+    });
 
-app.get('/',(req,res)=>{
-    res.send("Express server")
-})
-app.use(express.json());
-app.use('/api', require("./Routes/CreateUser") )
-app.use('/api', require("./Routes/DisplayData") )
-app.use('/api', require("./Routes/OrderData") )
+    app.use('/api', require("./Routes/CreateUser") )
+     app.use('/api', require("./Routes/DisplayData") )
+    app.use('/api', require("./Routes/OrderData") )
 
-app.listen(port,()=>{
-    console.log(`The server is running at port ${port}`)
-})
+    app.listen(port, () => {
+      console.log(`The server is running at port ${port}`);
+    });
+  } catch (error) {
+    console.error('Error starting server:', error);
+  }
+}
+
+startServer();
